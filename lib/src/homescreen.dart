@@ -21,7 +21,7 @@ class _homescreenState extends State<homescreen> {
         title:  const Text('Collectify'),
       ),
 
-      backgroundColor: Color(0xff02111B),
+      backgroundColor: Colors.white,
 
       drawer: Drawer(
       
@@ -78,9 +78,9 @@ class _homescreenState extends State<homescreen> {
 
         bottomNavigationBar: BottomAppBar(
 
-        color: Colors.green,
+        color: Color(0xff242424),
         shape: const CircularNotchedRectangle(),
-        notchMargin: 6,
+        notchMargin: 4,
         elevation: 0,
         child: Container(height: 40.0),
         ),
@@ -89,14 +89,14 @@ class _homescreenState extends State<homescreen> {
         extendBody: true,
 
 
-         body: Container(           
+          body: Container(           
             decoration: const BoxDecoration(
             image: DecorationImage(
             image: AssetImage("images/background/pattern_1/image.jpg"),
             fit: BoxFit.cover,
             ),
             ),
-         ),
+          ),
 
       
       ),
