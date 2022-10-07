@@ -17,7 +17,21 @@ class _homescreenState extends State<homescreen> {
       debugShowCheckedModeBanner: false,
 
       home: Scaffold(appBar: AppBar(
-        backgroundColor: Colors.green,
+
+        actions: <Widget>[
+        IconButton(
+            icon: Icon(
+            Icons.unfold_more_sharp,
+            color:  Color(0xff3943B7),
+          ),
+          onPressed: () {
+            
+          },
+          )
+        ],
+
+        foregroundColor:  Color(0xff3943B7),
+        backgroundColor: Color(0xffffffff),
         title:  const Text('Collectify'),
       ),
 
@@ -25,7 +39,7 @@ class _homescreenState extends State<homescreen> {
 
       drawer: Drawer(
       
-      backgroundColor: Colors.green.shade400,
+      backgroundColor: Color(0xffffffff),
         
       child: ListView(
       // Important: Remove any padding from the ListView.
@@ -45,9 +59,9 @@ class _homescreenState extends State<homescreen> {
       ListTile(
 
         // colors 
-        tileColor: Colors.white,
-        iconColor: Color(0xff242525),
-        textColor: Color(0xff242525),
+        tileColor: Color(0xff3943B7),
+        iconColor: Color(0xffffffff),
+        textColor: Color(0xffffffff),
 
         // icon 
         leading: const Icon(Icons.games_sharp),
@@ -68,9 +82,10 @@ class _homescreenState extends State<homescreen> {
 
 
         floatingActionButton: FloatingActionButton(
-        elevation: 0,
-        backgroundColor: Colors.green,
-        child: const Icon(Icons.library_add_rounded),
+          
+        elevation: 8,
+        backgroundColor:  Color(0xff3943B7),
+        child: const Icon(Icons.add),
         onPressed: () {
         },
         
@@ -78,21 +93,19 @@ class _homescreenState extends State<homescreen> {
 
         bottomNavigationBar: BottomAppBar(
 
-        color: Color(0xff242424),
-        shape: const CircularNotchedRectangle(),
-        notchMargin: 4,
-        elevation: 0,
+        color: Color(0xffffffff),
+
+        elevation: 4,
         child: Container(height: 40.0),
         ),
 
-        floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+        floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
         extendBody: true,
-
 
           body: Container(           
             decoration: const BoxDecoration(
             image: DecorationImage(
-            image: AssetImage("images/background/pattern_1/image.jpg"),
+            image: AssetImage("images/background/pattern_2/image.jpg"),
             fit: BoxFit.cover,
             ),
             ),
