@@ -21,7 +21,12 @@ class _homescreenState extends State<homescreen> {
         title:  const Text('Collectify'),
       ),
 
+      backgroundColor: Color(0xff02111B),
+
       drawer: Drawer(
+
+
+        
       
       backgroundColor: Colors.blueGrey,
         
@@ -73,7 +78,13 @@ class _homescreenState extends State<homescreen> {
         
         ),
 
-      
+
+        body:  Container(
+          child: 
+          Center( 
+            child: Text('List view Here !'),
+          )),
+
       
       ),
     );
