@@ -21,7 +21,6 @@ class _homescreenState extends State<homescreen> {
         title:  const Text('Collectify'),
       ),
 
-
       drawer: Drawer(
       
       backgroundColor: Colors.blueGrey,
@@ -42,39 +41,37 @@ class _homescreenState extends State<homescreen> {
       
 
       ListTile(
-        
-        leading: const Icon(Icons.home),
-        title: const Text('Item 1'),
+
+        // colors 
+        tileColor: Colors.white,
+        iconColor: Colors.amber,
+        textColor: Colors.black,
+
+        // icon 
+        leading: const Icon(Icons.games_sharp),
+
+        // text
+        title: const Text('Collected Games'),
+
+        // back_end handle
         onTap: () {
          
         },
-      ),
-      ListTile(
-        
-        leading: const Icon(Icons.add_a_photo),
-        title: const Text('Item 2'),
-        onTap: () {
-         
-        },
-      ),
-    ],
-  ),
-        
-        
-        
-        
-        
-        
+
+           ),
+         ],
+        ),   
         
         ),
 
 
-      floatingActionButton: FloatingActionButton(
+        floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.green,
         child: const Icon(Icons.library_add_rounded),
         onPressed: () {
-      },
-      ),
+        },
+        
+        ),
 
       
       
