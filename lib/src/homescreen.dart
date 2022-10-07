@@ -14,11 +14,24 @@ class _homescreenState extends State<homescreen> {
   Widget build(BuildContext context) {
     return MaterialApp(
 
+      debugShowCheckedModeBanner: false,
+
       home: Scaffold(appBar: AppBar(
-        title:  const Text('Collectigy Homescreen'),
+        backgroundColor: Colors.green,
+        title:  const Text('Collectify'),
       ),
 
-      drawer: const Drawer(backgroundColor: Colors.grey),
+
+      drawer: const Drawer(
+        backgroundColor: Colors.blueGrey),
+
+
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.green,
+        child: const Icon(Icons.library_add_rounded),
+        onPressed: () {
+      },
+      ),
 
       
       
