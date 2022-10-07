@@ -1,4 +1,4 @@
-// ignore_for_file: camel_case_types
+// ignore_for_file: camel_case_types, prefer_const_constructors
 
 import 'package:flutter/material.dart';
 
@@ -22,8 +22,51 @@ class _homescreenState extends State<homescreen> {
       ),
 
 
-      drawer: const Drawer(
-        backgroundColor: Colors.blueGrey),
+      drawer: Drawer(
+      
+      backgroundColor: Colors.blueGrey,
+        
+      child: ListView(
+      // Important: Remove any padding from the ListView.
+      padding: EdgeInsets.zero,
+      children: [
+
+       DrawerHeader(
+        decoration: BoxDecoration(
+         image: DecorationImage(
+                  image: AssetImage('images/logo.jpg'),
+                     fit: BoxFit.cover)
+              ),
+          child: null ,
+        ),
+      
+
+      ListTile(
+        
+        leading: const Icon(Icons.home),
+        title: const Text('Item 1'),
+        onTap: () {
+         
+        },
+      ),
+      ListTile(
+        
+        leading: const Icon(Icons.add_a_photo),
+        title: const Text('Item 2'),
+        onTap: () {
+         
+        },
+      ),
+    ],
+  ),
+        
+        
+        
+        
+        
+        
+        
+        ),
 
 
       floatingActionButton: FloatingActionButton(
