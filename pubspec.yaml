@@ -70,6 +70,11 @@ flutter:
      - images/logo.jpg
      - images/background/2.png
      - images/404.png
+     - images/background/pattern_1/image.jpg
+     - images/background/pattern_2/image.jpg
+     - images/background/pattern_3/image.jpg
+
+
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

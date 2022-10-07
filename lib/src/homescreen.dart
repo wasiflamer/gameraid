@@ -24,11 +24,8 @@ class _homescreenState extends State<homescreen> {
       backgroundColor: Color(0xff02111B),
 
       drawer: Drawer(
-
-
-        
       
-      backgroundColor: Colors.blueGrey,
+      backgroundColor: Colors.green.shade400,
         
       child: ListView(
       // Important: Remove any padding from the ListView.
@@ -41,7 +38,7 @@ class _homescreenState extends State<homescreen> {
                   image: AssetImage('images/logo.jpg'),
                      fit: BoxFit.cover)
               ),
-          child: null ,
+          child: null,
         ),
       
 
@@ -49,8 +46,8 @@ class _homescreenState extends State<homescreen> {
 
         // colors 
         tileColor: Colors.white,
-        iconColor: Colors.amber,
-        textColor: Colors.black,
+        iconColor: Color(0xff242525),
+        textColor: Color(0xff242525),
 
         // icon 
         leading: const Icon(Icons.games_sharp),
@@ -71,6 +68,7 @@ class _homescreenState extends State<homescreen> {
 
 
         floatingActionButton: FloatingActionButton(
+        elevation: 0,
         backgroundColor: Colors.green,
         child: const Icon(Icons.library_add_rounded),
         onPressed: () {
@@ -78,12 +76,27 @@ class _homescreenState extends State<homescreen> {
         
         ),
 
+        bottomNavigationBar: BottomAppBar(
 
-        body:  Container(
-          child: 
-          Center( 
-            child: Text('List view Here !'),
-          )),
+        color: Colors.green,
+        shape: const CircularNotchedRectangle(),
+        notchMargin: 6,
+        elevation: 0,
+        child: Container(height: 40.0),
+        ),
+
+        floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+        extendBody: true,
+
+
+         body: Container(           
+            decoration: const BoxDecoration(
+            image: DecorationImage(
+            image: AssetImage("images/background/pattern_1/image.jpg"),
+            fit: BoxFit.cover,
+            ),
+            ),
+         ),
 
       
       ),
