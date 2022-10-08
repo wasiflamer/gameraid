@@ -1,5 +1,6 @@
 // ignore_for_file: camel_case_types, prefer_const_constructors
 
+import 'package:collectify/src/add_game.dart';
 import 'package:flutter/material.dart';
 
 class homescreen extends StatefulWidget {
@@ -13,6 +14,8 @@ class _homescreenState extends State<homescreen> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+
+      title: 'Collectify',
 
       debugShowCheckedModeBanner: false,
 
@@ -87,6 +90,12 @@ class _homescreenState extends State<homescreen> {
         backgroundColor:  Color(0xff3943B7),
         child: const Icon(Icons.add),
         onPressed: () {
+
+          Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const add_game()),
+          );
+
         },
         
         ),
