@@ -21,6 +21,8 @@ class _homescreenState extends State<homescreen> {
 
       home: Scaffold(appBar: AppBar(
 
+        titleTextStyle: TextStyle(color:  Color(0xff3943B7), fontSize: 20 , fontFamily: 'Russo One',),
+
         actions: <Widget>[
         IconButton(
             icon: Icon(
@@ -35,7 +37,7 @@ class _homescreenState extends State<homescreen> {
 
         foregroundColor:  Color(0xff3943B7),
         backgroundColor: Color(0xffffffff),
-        title:  const Text('Collectify'),
+        title:  const Text('Collectify') ,
       ),
 
       backgroundColor: Colors.white,

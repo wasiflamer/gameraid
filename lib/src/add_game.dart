@@ -29,7 +29,11 @@ class _add_gameState extends State<add_game> {
     
     return Scaffold(
 
+      resizeToAvoidBottomInset: false,
+
         appBar: AppBar(
+
+        titleTextStyle: TextStyle(color:  Color(0xff3943B7), fontSize: 20 , fontFamily: 'Russo One',),
 
         foregroundColor: const  Color(0xff3943B7),
         backgroundColor: const  Color(0xffffffff),
@@ -53,6 +57,7 @@ class _add_gameState extends State<add_game> {
             image: DecorationImage(
             image: AssetImage("images/background/pattern_2/image.jpg"),
             fit: BoxFit.cover,
+          
             ),
             ),
 
@@ -65,7 +70,7 @@ class _add_gameState extends State<add_game> {
             // ignore: prefer_const_literals_to_create_immutables
             children: <Widget>[
                Padding(
-                padding: EdgeInsets.only(left: 24 , right: 24 , top: 124),
+                padding: EdgeInsets.only(left: 24 , right: 24 , top: 25),
                 
                   // title textfield
                   child: TextField(
@@ -74,7 +79,7 @@ class _add_gameState extends State<add_game> {
                   textInputAction: TextInputAction.next,
 
                   // text style
-                  style: TextStyle(color: Colors.white , fontSize: 22 , fontFamily: 'Russo One'),
+                  style: TextStyle(color: Colors.white , fontSize: 22 , fontFamily: 'Mulish-Bold'),
 
                   // cursor
                   cursorColor: Colors.white,
@@ -82,41 +87,50 @@ class _add_gameState extends State<add_game> {
                   cursorRadius: Radius.elliptical(20,20),
                   cursorWidth: 2.0,
                   autofocus: true,
-                  maxLines: null,
+                  maxLines: 1,
                   textCapitalization: TextCapitalization.sentences,
                   textAlign: TextAlign.center,
 
+                  
                   // border 
                   decoration: InputDecoration(
                   filled: true,
-                  fillColor:  Colors.green,
+                  fillColor:  Color(0xff3943B7),
               
-                  // label text
-                  labelText: 'Title',
-                  floatingLabelAlignment: FloatingLabelAlignment.start,
-                  floatingLabelStyle:     const TextStyle(color: Colors.blue, fontSize: 26 , fontFamily: 'Russo One',),
-                  floatingLabelBehavior:  FloatingLabelBehavior.always,
-                             
+                  
+                  hintText: 'Name', 
+                  hintStyle: TextStyle(color: Color.fromARGB(76, 255, 255, 255) , fontSize: 22 , fontFamily: 'Mulish-Bold'),   
                 
                   border: OutlineInputBorder(
                   borderSide: BorderSide.none,
-                  borderRadius: BorderRadius.only( topLeft:Radius.elliptical(20,20), topRight:Radius.elliptical(20,20)),
+                  borderRadius: BorderRadius.all(Radius.elliptical(20, 20)),
                    ),
                   ),
                   
                   // title controller
-                  controller: titleController,   
-
-                ),   
-                  
+                  controller: titleController,  
                   ),
+                  ),
+                  Padding(padding: EdgeInsets.only(left: 25 , right: 0 , top: 0),
+                  
+                  child: ListTile(
+
+                    leading: Icon(Icons.add),
+                    title: Text('Search'),
+                    
+
+
+                 
+                  ),
+
+
+
+                  )
                   ],
                 ),
               ),
             ),
-
-          ),
- 
+          ),      
       );
   }
 }
