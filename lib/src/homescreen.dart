@@ -30,6 +30,22 @@ class _homescreenState extends State<homescreen> {
             color:  Color(0xff3943B7),
           ),
           onPressed: () {
+
+            DropdownButton(
+
+              onChanged: (value) {
+                
+              },
+              
+              items: const [
+                DropdownMenuItem(value: 'Date', child: Text('Order by Date')),
+                DropdownMenuItem(value: 'Release', child: Text('Order by Release')),
+                DropdownMenuItem(value: 'Rating', child: Text('Order by Rating')),
+
+              ],
+                        
+              
+              );
             
           },
           )
