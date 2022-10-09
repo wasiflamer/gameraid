@@ -69,68 +69,68 @@ class _add_gameState extends State<add_game> {
             crossAxisAlignment: CrossAxisAlignment.start,
             // ignore: prefer_const_literals_to_create_immutables
             children: <Widget>[
-               Padding(
-                padding: EdgeInsets.only(left: 24 , right: 24 , top: 25),
-                
-                  // title textfield
-                  child: TextField(
 
-                  // keyboard Button action 
-                  textInputAction: TextInputAction.next,
-
-                  // text style
-                  style: TextStyle(color: Colors.white , fontSize: 22 , fontFamily: 'Mulish-Bold'),
-
-                  // cursor
-                  cursorColor: Colors.white,
-                  cursorHeight: 27,
-                  cursorRadius: Radius.elliptical(20,20),
-                  cursorWidth: 2.0,
-                  autofocus: true,
-                  maxLines: 1,
-                  textCapitalization: TextCapitalization.sentences,
-                  textAlign: TextAlign.center,
-
+                  Padding(padding: EdgeInsets.only(left: 7 , right: 7 , top: 10),
                   
-                  // border 
-                  decoration: InputDecoration(
-                  filled: true,
-                  fillColor:  Color(0xff3943B7),
-              
+                      child: Card(
+
+                      margin: EdgeInsets.only(left: 7, right: 7, top: 10 ),
+
+                      color: Color(0xff3943B7), 
+                      surfaceTintColor: Color.fromARGB(255, 255, 255, 255),
+                      elevation: 8,
+                      shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.elliptical(20,20))),
+
+                      child: ListTile(   
+
+                      iconColor: Colors.white,
+                      textColor: Colors.white,
+                      
+                      dense: true,
+                     
+                      leading: Padding(padding: EdgeInsets.only(left: 7 , right: 7 , top: 7),
+                      child: Icon(Icons.search , size: 30,),),
+                      title: TextField(
+
+                      // keyboard Button action 
+                      textInputAction: TextInputAction.next,
+
+                      // text style
+                      style: TextStyle(color: Colors.white , fontSize: 22 , fontFamily: 'Mulish-Bold' , decoration: TextDecoration.none, decorationColor: Color(0xff3943B7), ),
+
+                      // cursor
+                      cursorColor: Colors.white,
+                      cursorHeight: 27,
+                      cursorRadius: Radius.elliptical(20,20),
+                      cursorWidth: 2.0,
+                      autofocus: true,
+                      maxLines: null,
+                      textCapitalization: TextCapitalization.sentences,
+
+                      decoration: InputDecoration(
+
+                      hintText: 'Name', 
+                      hintStyle: TextStyle(color: Color.fromARGB(76, 255, 255, 255) , fontSize: 22 , fontFamily: 'Mulish-Bold', decoration: TextDecoration.none),   
+
+                      border: OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.all(Radius.elliptical(20, 20)),
+                      ),
+
+                      ),
+
+                      ),
+                   
+                     ),
                   
-                  hintText: 'Name', 
-                  hintStyle: TextStyle(color: Color.fromARGB(76, 255, 255, 255) , fontSize: 22 , fontFamily: 'Mulish-Bold'),   
-                
-                  border: OutlineInputBorder(
-                  borderSide: BorderSide.none,
-                  borderRadius: BorderRadius.all(Radius.elliptical(20, 20)),
-                   ),
+                    )
                   ),
-                  
-                  // title controller
-                  controller: titleController,  
-                  ),
-                  ),
-                  Padding(padding: EdgeInsets.only(left: 25 , right: 0 , top: 0),
-                  
-                  child: ListTile(
-
-                    leading: Icon(Icons.add),
-                    title: Text('Search'),
-                    
-
-
-                 
-                  ),
-
-
-
-                  )
-                  ],
+                ],
                 ),
               ),
             ),
-          ),      
+          ), 
       );
   }
 }
