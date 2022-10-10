@@ -29,7 +29,7 @@ class _add_gameState extends State<add_game> {
     
     return Scaffold(
 
-      resizeToAvoidBottomInset: false,
+        resizeToAvoidBottomInset: false,
 
         appBar: AppBar(
 
@@ -50,7 +50,7 @@ class _add_gameState extends State<add_game> {
         child: Container(height: 40.0),
         ),
 
-        extendBody: true,
+          extendBody: true,
 
           body: Container(           
             decoration: const BoxDecoration(
@@ -97,7 +97,7 @@ class _add_gameState extends State<add_game> {
                       textInputAction: TextInputAction.next,
 
                       // text style
-                      style: TextStyle(color: Colors.white , fontSize: 22 , fontFamily: 'Mulish-Bold' , decoration: TextDecoration.none, decorationColor: Color(0xff3943B7), ),
+                      style: TextStyle(color: Colors.white, fontSize: 22 , fontFamily: 'Mulish-Bold' , decoration: TextDecoration.none, decorationColor: Color(0xff3943B7),),
 
                       // cursor
                       cursorColor: Colors.white,
@@ -119,6 +119,16 @@ class _add_gameState extends State<add_game> {
                       ),
 
                       ),
+
+                      controller: titleController,
+
+                      onEditingComplete: () {
+
+                        // show a list of games returned by the api 
+                        
+
+                        
+                      },
 
                       ),
                    

@@ -16,11 +16,11 @@ class _homescreenState extends State<homescreen> {
     return MaterialApp(
 
       title: 'Collectify',
-
       debugShowCheckedModeBanner: false,
 
-      home: Scaffold(appBar: AppBar(
-
+      home: Scaffold(
+        
+        appBar: AppBar(
         titleTextStyle: TextStyle(color:  Color(0xff3943B7), fontSize: 20 , fontFamily: 'Russo One',),
 
         actions: <Widget>[
@@ -85,10 +85,10 @@ class _homescreenState extends State<homescreen> {
         textColor: Color(0xffffffff),
 
         // icon 
-        leading: const Icon(Icons.games_sharp),
+        leading: const Icon(Icons.games_sharp, size: 30,),
 
         // text
-        title: const Text('Collected Games'),
+        title: const Text('Collected Games', style: TextStyle(color: Colors.white , fontSize: 18 , fontFamily: 'Mulish-Bold' , decoration: TextDecoration.none,)),
 
         // back_end handle
         onTap: () {
@@ -121,9 +121,9 @@ class _homescreenState extends State<homescreen> {
         bottomNavigationBar: BottomAppBar(
 
         color: Color(0xffffffff),
-
         elevation: 4,
         child: Container(height: 40.0),
+
         ),
 
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
@@ -138,7 +138,6 @@ class _homescreenState extends State<homescreen> {
             ),
           ),
 
-      
       ),
     );
   }
