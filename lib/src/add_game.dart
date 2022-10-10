@@ -2,7 +2,10 @@
 
 // ignore_for_file: camel_case_types, prefer_const_constructors
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'api_helper.dart';
 
 class add_game extends StatefulWidget {
@@ -65,7 +68,7 @@ class _add_gameState extends State<add_game> {
             child: SingleChildScrollView(
             child: SizedBox(
             width: 400,
-            height: 900,
+            height: 1200,
             child: Column( 
             crossAxisAlignment: CrossAxisAlignment.start,
             // ignore: prefer_const_literals_to_create_immutables
@@ -122,12 +125,30 @@ class _add_gameState extends State<add_game> {
                       ),
 
                       controller: titleController,
+                      
 
-                      onEditingComplete: () {
+                      onEditingComplete: () async {
+
+                        var  TitleName = titleController.text; 
 
                         // show a list of games returned by the API
                         
+                        var response = await post(Uri.parse('https://api.igdb.com/v4/games'),
+                        headers: {
 
+                        "Client-ID": "qy0014f6bb0s49s8iffaxs9fu05v1s",
+                        "Authorization": "Bearer vrzwedsndtzt2go6gp4yiy21114yzh"
+                        },
+                        
+                        body: 'search "$TitleName"; fields name, cover, storyline ; limit 10; where storyline != null ;',
+                        );
+
+                        var parsedJson  = json.decode(response.body);
+
+                        
+
+                        
+                        
                         
                       },
 
