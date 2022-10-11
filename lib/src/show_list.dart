@@ -9,6 +9,9 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'api_helper.dart';
 
+
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+
 class showlist extends StatefulWidget {
    showlist({super.key , required this.gameinfo_model ,  required this.search_term });
    late  dynamic gameinfo_model ;
@@ -54,7 +57,7 @@ class _showlistState extends State<showlist> {
           title:  Text(widget.search_term),
           ),
 
-          backgroundColor: Color.fromARGB(255, 248, 248, 248),
+          backgroundColor: Colors.white,
 
           bottomNavigationBar: BottomAppBar(
 
@@ -66,52 +69,96 @@ class _showlistState extends State<showlist> {
 
             extendBody: true,
 
-            body: ListView.builder(
+            body: GridView.builder(
 
-                    padding: EdgeInsets.only(left: 7 , right: 7),
+                            gridDelegate: const  SliverGridDelegateWithFixedCrossAxisCount(
+                           
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 8,
+                            mainAxisSpacing: 8,
+                            mainAxisExtent: 240,
+                      
+                            ),
 
-                    scrollDirection: Axis.vertical,
-                    shrinkWrap: true,
-
-                    itemCount: matched_results,
-                    itemBuilder: (BuildContext context, int index) {
-
-                    return Card(  
-
-                    elevation: 6,
-
-                    // card style
-                     margin:  const EdgeInsets.only(top: 25 , left: 7 , right: 7),           
-                     
-                     color:  Color(0xff3943B7),                  
-                     shape:   const RoundedRectangleBorder(
-                     borderRadius: BorderRadius.all(Radius.elliptical(20,20))),
-                     
-                      child: ListTile(
-
+                            itemCount: matched_results,
+                            itemBuilder: (BuildContext context, index) {
                         
-                       tileColor: Color(0xff3943B7),
-                       minVerticalPadding: 10,
-                       contentPadding: EdgeInsets.all(10),
-                       minLeadingWidth: 90,
-                       shape:const RoundedRectangleBorder(
-                       borderRadius: BorderRadius.all(Radius.elliptical(15,15)),
-                       ),
+                              return Card(
 
+                              elevation: 6,
+                
+                              // card style
+                              margin:  const EdgeInsets.only(top: 9 , left: 9 , right: 9),           
+                              color:   Colors.white,                   
+                              shape:   const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.all(Radius.elliptical(20,20)),
+                              ),
+              
 
-                       iconColor:  Colors.white,
-                       textColor:  Colors.white,
-                       isThreeLine: true,
+                                child: Container(
 
-                       leading: SizedBox( height: 200, width:200, child: Image.network(Game_Cover , height: 200, width: 200,)) ,
-                 
-                        title: Text(widget.gameinfo_model.name, maxLines: 3, overflow: TextOverflow.fade, style:  TextStyle(fontSize: 18, fontFamily: 'Mulish-Bold', )),
-                        subtitle: Text(widget.gameinfo_model.story_line, maxLines: 4, overflow: TextOverflow.fade, style:  TextStyle(fontSize: 16, fontFamily: 'Mulish',)),
+                                  decoration: BoxDecoration(
+                                    borderRadius:BorderRadius.all(Radius.elliptical(20,20)),
+                                    image: DecorationImage(
+                                      fit: BoxFit.cover,  //I assumed you want to occupy the entire space of the card
+                                      image: NetworkImage(
+                                        Game_Cover,
                       
-                      
-                       ),
-                    );
-                 }), 
+                                      ),
+                                    ),
+                                  ),
+
+
+
+                                  child: Align(
+                                    alignment: FractionalOffset.bottomCenter,
+
+                                    child: ListTile(
+                                      contentPadding: EdgeInsets.only(bottom: 10 , left: 10 , right: 10),
+                                       
+                                      textColor: Color(0xff3943B7),
+                                       
+                                       subtitle: Container(
+
+                                       decoration: BoxDecoration(
+                                       
+                                       color: Color.fromARGB(255, 255, 255, 255),
+
+                                       borderRadius:  BorderRadius.all(Radius.elliptical(8,8)),
+                                       
+                                        ),
+
+
+                                         child: RatingBar.builder(
+
+                                          itemSize: 20,
+                                       
+                                          ignoreGestures: true,
+                                          unratedColor: Colors.grey,
+                                          initialRating: 3,
+                                          minRating: 1,
+                                          direction: Axis.horizontal,
+                                          allowHalfRating: true,
+                                          itemCount: 5,
+                                          itemPadding: EdgeInsets.symmetric(horizontal: 6.0),
+                                          itemBuilder: (context, _) => Icon(
+                                            Icons.star,
+                                            color: Color(0xff3943B7),
+                                           
+                                          ),
+                                          onRatingUpdate: (rating) {
+                                           
+                                          },
+                                      ),
+                                       ),
+
+                                      ),
+                                    ),
+                                  ),
+
+
+                              );
+                            }), 
               ),
         );
     }
