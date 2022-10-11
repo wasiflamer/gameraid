@@ -1,5 +1,6 @@
 // ignore_for_file: camel_case_types, prefer_const_constructors
 
+
 import 'package:collectify/src/add_game.dart';
 import 'package:flutter/material.dart';
 
@@ -11,6 +12,12 @@ class homescreen extends StatefulWidget {
 }
 
 class _homescreenState extends State<homescreen> {
+
+
+  
+
+
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -19,6 +26,11 @@ class _homescreenState extends State<homescreen> {
       debugShowCheckedModeBanner: false,
 
       home: Scaffold(
+
+
+     
+
+        
         
         appBar: AppBar(
         titleTextStyle: TextStyle(color:  Color(0xff3943B7), fontSize: 20 , fontFamily: 'Russo One',),

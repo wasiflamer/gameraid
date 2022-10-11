@@ -9,6 +9,29 @@ import 'package:collectify/src/show_list.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'api_helper.dart';
+import 'homescreen.dart';
+
+
+ /*------------ snack bar deleted note ---------- */ 
+
+  var snackBar_not_found = SnackBar(
+    duration: Duration(milliseconds: 3000),
+    elevation: 8,
+    behavior: SnackBarBehavior.floating,
+    content:  Row(
+      children: const [
+        Padding(padding: EdgeInsets.only(right: 10) , child: Icon(Icons.disabled_by_default_sharp , color: Colors.red, size: 30,)),
+        Text(' No Game Found or Use Spaces ! '),
+      ],
+    ),
+    shape:    RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.elliptical(20, 20)),
+           ),  
+  );
+
+
+
+
 
 class add_game extends StatefulWidget {
   const add_game({super.key});
@@ -18,6 +41,9 @@ class add_game extends StatefulWidget {
 }
 
 class _add_gameState extends State<add_game> {
+
+
+ 
 
    // instance of text_ediitng controllers 
   final titleController   = TextEditingController();
@@ -47,6 +73,10 @@ class _add_gameState extends State<add_game> {
 
       child: Scaffold(
 
+       
+
+        
+
           appBar: AppBar(
 
           titleTextStyle: TextStyle(color:  Color(0xff3943B7), fontSize: 20 , fontFamily: 'Russo One',),
@@ -73,6 +103,7 @@ class _add_gameState extends State<add_game> {
               child: SingleChildScrollView(
               child: SizedBox(
               width: 400,
+              height: 900,
 
               child: Column( 
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -149,12 +180,11 @@ class _add_gameState extends State<add_game> {
 
 
           floatingActionButton: FloatingActionButton(
+   
             
-            onPressed: ()  async {
-
-
+             onPressed: ()  async {
                
-               var  TitleName = titleController.text; 
+              var  TitleName = titleController.text; 
 
               
               // get game details (cover, name, story_line)
@@ -165,7 +195,7 @@ class _add_gameState extends State<add_game> {
               "Authorization": "Bearer vrzwedsndtzt2go6gp4yiy21114yzh"
               },
               
-              body: 'search "$TitleName"; fields name, cover, cover.url , storyline ; limit 8 ; where storyline != null ;',
+              body: 'search "$TitleName"; fields name, cover, cover.url , storyline ; limit 8 ; where storyline != null;',
               );
 
               
@@ -174,19 +204,30 @@ class _add_gameState extends State<add_game> {
               if (response.statusCode == 200 )
               {
 
-                  // get the parsed details 
+                 dynamic looper = parsedJson.toString().length;
+
+                 debugPrint(looper.toString());
+
+                  if ( looper == null)
+                  {
+
+
+                    
+
+                  }
+                  else {
+                  
                   var game_model  = gameinfo_model(parsedJson[0]['id'] , parsedJson[0]['name'] , parsedJson[0]['storyline'] , parsedJson[0]['cover']['url'] );
 
                   // go to the list view 
                   Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => showlist(gameinfo_model: game_model, search_term:titleController.text)),
-              );
-              }
-              else
-              {
-                // show a text stating no game with that title found 
+                  MaterialPageRoute(builder: (context) => showlist(gameinfo_model: game_model, search_term:titleController.text)));    
 
+                  }
+
+            
+                // show a snackbar stating no game with that title found
 
 
               }
