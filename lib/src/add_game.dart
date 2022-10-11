@@ -4,6 +4,7 @@
 
 import 'dart:convert';
 
+import 'package:collectify/src/show_list.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'api_helper.dart';
@@ -32,8 +33,6 @@ class _add_gameState extends State<add_game> {
   Widget build(BuildContext context) {
     
     return Scaffold(
-
-        resizeToAvoidBottomInset: false,
 
         appBar: AppBar(
 
@@ -68,7 +67,7 @@ class _add_gameState extends State<add_game> {
             child: SingleChildScrollView(
             child: SizedBox(
             width: 400,
-            height: 1200,
+            height: 900,
             child: Column( 
             crossAxisAlignment: CrossAxisAlignment.start,
             // ignore: prefer_const_literals_to_create_immutables
@@ -140,15 +139,13 @@ class _add_gameState extends State<add_game> {
                         "Authorization": "Bearer vrzwedsndtzt2go6gp4yiy21114yzh"
                         },
                         
-                        body: 'search "$TitleName"; fields name, cover, storyline ; limit 10; where storyline != null ;',
+                        body: 'search "$TitleName"; fields name, cover, cover.url , storyline ; limit 10; where storyline != null ;',
                         );
 
                         var parsedJson  = json.decode(response.body);
 
-                        
-
-                        
-                        
+                        debugPrint(parsedJson.toString());
+                                 
                         
                       },
 
@@ -158,11 +155,37 @@ class _add_gameState extends State<add_game> {
                   
                     )
                   ),
+
+                 
+
                 ],
                 ),
               ),
             ),
           ), 
+
+
+        floatingActionButton: FloatingActionButton(
+          
+          onPressed: () {
+
+            Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const showlist()),
+            );
+          
+          },
+
+          child: Icon(Icons.next_plan),
+        
+        ),
+
+
+
+
+
+
+
       );
   }
 }
