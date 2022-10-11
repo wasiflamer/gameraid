@@ -4,12 +4,16 @@
 
 import 'dart:convert';
 
+import 'package:collectify/src/add_game.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'api_helper.dart';
 
 class showlist extends StatefulWidget {
-  const showlist({super.key});
+   showlist({super.key , required this.gameinfo_model ,  required this.search_term });
+   late  dynamic gameinfo_model ;
+   late  dynamic search_term ;
+
 
   @override
   State<showlist> createState() => _showlistState();
@@ -17,45 +21,98 @@ class showlist extends StatefulWidget {
 
 class _showlistState extends State<showlist> {
 
+
   @override
   Widget build(BuildContext context) {
+
+
+    String replace_cover = widget.gameinfo_model.cover_url.replaceFirst(RegExp('t_thumb'), 't_cover_big'); 
+    String Game_Cover    = ('https:$replace_cover');
+    var matched_results  = widget.gameinfo_model.toString().length;
+
     
-    return Scaffold(
+    
+    return Container(
 
-        resizeToAvoidBottomInset: false,
+      decoration: BoxDecoration(
+      image: DecorationImage(
+      image: AssetImage("images/background/pattern_2/image.jpg"),
+      fit: BoxFit.cover,
+    
+      ),
+      ),
 
-        appBar: AppBar(
 
-        titleTextStyle: TextStyle(color:  Color(0xff3943B7), fontSize: 20 , fontFamily: 'Russo One',),
+      child: Scaffold(
 
-        foregroundColor: const  Color(0xff3943B7),
-        backgroundColor: const  Color(0xffffffff),
-        title:  const Text('Placeholder'),
-        ),
+          appBar: AppBar(
 
-        backgroundColor: Colors.white,
+          titleTextStyle: TextStyle(color:  Color(0xff3943B7), fontSize: 20 , fontFamily: 'Russo One',),
 
-        bottomNavigationBar: BottomAppBar(
+          foregroundColor: const  Color(0xff3943B7),
+          backgroundColor: const  Color(0xffffffff),
+          title:  Text(widget.search_term),
+          ),
 
-        color: const Color(0xffffffff),
+          backgroundColor: Color.fromARGB(255, 248, 248, 248),
 
-        elevation: 4,
-        child: Container(height: 40.0),
-        ),
+          bottomNavigationBar: BottomAppBar(
 
-          extendBody: true,
+          color: const Color(0xffffffff),
 
-          body: Container(           
-            decoration: const BoxDecoration(
-            image: DecorationImage(
-            image: AssetImage("images/background/pattern_2/image.jpg"),
-            fit: BoxFit.cover,
-          
-            ),
-            ),
+          elevation: 8,
+          child: Container(height: 40.0),
+          ),
 
-            child: Center(child: Text('dd')),
-          ), 
-      );
-  }
+            extendBody: true,
+
+            body: ListView.builder(
+
+                    padding: EdgeInsets.only(left: 7 , right: 7),
+
+                    scrollDirection: Axis.vertical,
+                    shrinkWrap: true,
+
+                    itemCount: matched_results,
+                    itemBuilder: (BuildContext context, int index) {
+
+                    return Card(  
+
+                    elevation: 6,
+
+                    // card style
+                     margin:  const EdgeInsets.only(top: 25 , left: 7 , right: 7),           
+                     
+                     color:  Color(0xff3943B7),                  
+                     shape:   const RoundedRectangleBorder(
+                     borderRadius: BorderRadius.all(Radius.elliptical(20,20))),
+                     
+                      child: ListTile(
+
+                        
+                       tileColor: Color(0xff3943B7),
+                       minVerticalPadding: 10,
+                       contentPadding: EdgeInsets.all(10),
+                       minLeadingWidth: 90,
+                       shape:const RoundedRectangleBorder(
+                       borderRadius: BorderRadius.all(Radius.elliptical(15,15)),
+                       ),
+
+
+                       iconColor:  Colors.white,
+                       textColor:  Colors.white,
+                       isThreeLine: true,
+
+                       leading: SizedBox( height: 200, width:200, child: Image.network(Game_Cover , height: 200, width: 200,)) ,
+                 
+                        title: Text(widget.gameinfo_model.name, maxLines: 3, overflow: TextOverflow.fade, style:  TextStyle(fontSize: 18, fontFamily: 'Mulish-Bold', )),
+                        subtitle: Text(widget.gameinfo_model.story_line, maxLines: 4, overflow: TextOverflow.fade, style:  TextStyle(fontSize: 16, fontFamily: 'Mulish',)),
+                      
+                      
+                       ),
+                    );
+                 }), 
+              ),
+        );
+    }
 }
