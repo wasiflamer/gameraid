@@ -32,160 +32,166 @@ class _add_gameState extends State<add_game> {
   @override
   Widget build(BuildContext context) {
     
-    return Scaffold(
+    return Container(
 
-        appBar: AppBar(
 
-        titleTextStyle: TextStyle(color:  Color(0xff3943B7), fontSize: 20 , fontFamily: 'Russo One',),
+      decoration: BoxDecoration(
+      image: DecorationImage(
+      image: AssetImage("images/background/pattern_2/image.jpg"),
+      fit: BoxFit.cover,
+    
+      ),
+      ),
 
-        foregroundColor: const  Color(0xff3943B7),
-        backgroundColor: const  Color(0xffffffff),
-        title:  const Text('Fetch Game'),
-        ),
 
-        backgroundColor: Colors.white,
+      child: Scaffold(
 
-        bottomNavigationBar: BottomAppBar(
+          appBar: AppBar(
 
-        color: const Color(0xffffffff),
+          titleTextStyle: TextStyle(color:  Color(0xff3943B7), fontSize: 20 , fontFamily: 'Russo One',),
 
-        elevation: 4,
-        child: Container(height: 40.0),
-        ),
+          foregroundColor: const  Color(0xff3943B7),
+          backgroundColor: const  Color(0xffffffff),
+          title:  const Text('Fetch Game'),
+          ),
 
-          extendBody: true,
+          backgroundColor: Colors.transparent,
 
-          body: Container(           
-            decoration: const BoxDecoration(
-            image: DecorationImage(
-            image: AssetImage("images/background/pattern_2/image.jpg"),
-            fit: BoxFit.cover,
-          
-            ),
-            ),
+          bottomNavigationBar: BottomAppBar(
 
-            child: SingleChildScrollView(
-            child: SizedBox(
-            width: 400,
-            height: 900,
-            child: Column( 
-            crossAxisAlignment: CrossAxisAlignment.start,
-            // ignore: prefer_const_literals_to_create_immutables
-            children: <Widget>[
+          color: const Color(0xffffffff),
 
-                  Padding(padding: EdgeInsets.only(left: 7 , right: 7 , top: 10),
-                  
-                      child: Card(
+          elevation: 4,
+          child: Container(height: 40.0),
+          ),
 
-                      margin: EdgeInsets.only(left: 7, right: 7, top: 10 ),
+            extendBody: true,
 
-                      color: Color(0xff3943B7), 
-                      surfaceTintColor: Color.fromARGB(255, 255, 255, 255),
-                      elevation: 8,
-                      shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.elliptical(20,20))),
+            body: Container(           
 
-                      child: ListTile(   
+              child: SingleChildScrollView(
+              child: SizedBox(
+              width: 400,
+            
+              child: Column( 
+              crossAxisAlignment: CrossAxisAlignment.start,
+              // ignore: prefer_const_literals_to_create_immutables
+              children: <Widget>[
 
-                      iconColor: Colors.white,
-                      textColor: Colors.white,
-                      
-                      dense: true,
-                     
-                      leading: Padding(padding: EdgeInsets.only(left: 7 , right: 7 , top: 7),
-                      child: Icon(Icons.search , size: 30,),),
-                      title: TextField(
+                    Padding(padding: EdgeInsets.only(left: 7 , right: 7 , top: 10),
+                    
+                        child: Card(
 
-                      // keyboard Button action 
-                      textInputAction: TextInputAction.next,
+                        margin: EdgeInsets.only(left: 7, right: 7, top: 10 ),
 
-                      // text style
-                      style: TextStyle(color: Colors.white, fontSize: 22 , fontFamily: 'Mulish-Bold' , decoration: TextDecoration.none, decorationColor: Color(0xff3943B7),),
+                        color: Color(0xff3943B7), 
+                        surfaceTintColor: Color.fromARGB(255, 255, 255, 255),
+                        elevation: 8,
+                        shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.elliptical(20,20))),
 
-                      // cursor
-                      cursorColor: Colors.white,
-                      cursorHeight: 27,
-                      cursorRadius: Radius.elliptical(20,20),
-                      cursorWidth: 2.0,
-                      autofocus: true,
-                      maxLines: null,
-                      textCapitalization: TextCapitalization.sentences,
+                        child: ListTile(   
 
-                      decoration: InputDecoration(
-
-                      hintText: 'Name', 
-                      hintStyle: TextStyle(color: Color.fromARGB(76, 255, 255, 255) , fontSize: 22 , fontFamily: 'Mulish-Bold', decoration: TextDecoration.none),   
-
-                      border: OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                      borderRadius: BorderRadius.all(Radius.elliptical(20, 20)),
-                      ),
-
-                      ),
-
-                      controller: titleController,
-                      
-
-                      onEditingComplete: () async {
-
-                        var  TitleName = titleController.text; 
-
-                        // show a list of games returned by the API
+                        iconColor: Colors.white,
+                        textColor: Colors.white,
                         
-                        var response = await post(Uri.parse('https://api.igdb.com/v4/games'),
-                        headers: {
+                        dense: true,
+                       
+                        leading: Padding(padding: EdgeInsets.only(left: 7 , right: 7 , top: 7),
+                        child: Icon(Icons.search , size: 30,),),
+                        title: TextField(
 
-                        "Client-ID": "qy0014f6bb0s49s8iffaxs9fu05v1s",
-                        "Authorization": "Bearer vrzwedsndtzt2go6gp4yiy21114yzh"
+                        // keyboard Button action 
+                        textInputAction: TextInputAction.next,
+
+                        // text style
+                        style: TextStyle(color: Colors.white, fontSize: 22 , fontFamily: 'Mulish-Bold' , decoration: TextDecoration.none, decorationColor: Color(0xff3943B7),),
+
+                        // cursor
+                        cursorColor: Colors.white,
+                        cursorHeight: 27,
+                        cursorRadius: Radius.elliptical(20,20),
+                        cursorWidth: 2.0,
+                        autofocus: true,
+                        maxLines: null,
+                        textCapitalization: TextCapitalization.sentences,
+
+                        decoration: InputDecoration(
+
+                        hintText: 'Name', 
+                        hintStyle: TextStyle(color: Color.fromARGB(76, 255, 255, 255) , fontSize: 22 , fontFamily: 'Mulish-Bold', decoration: TextDecoration.none),   
+
+                        border: OutlineInputBorder(
+                        borderSide: BorderSide.none,
+                        borderRadius: BorderRadius.all(Radius.elliptical(20, 20)),
+                        ),
+
+                        ),
+
+                        controller: titleController,
+                        
+
+                        onEditingComplete: () async {
+
+                          var  TitleName = titleController.text; 
+
+                          // show a list of games returned by the API
+                          
+                          var response = await post(Uri.parse('https://api.igdb.com/v4/games'),
+                          headers: {
+
+                          "Client-ID": "qy0014f6bb0s49s8iffaxs9fu05v1s",
+                          "Authorization": "Bearer vrzwedsndtzt2go6gp4yiy21114yzh"
+                          },
+                          
+                          body: 'search "$TitleName"; fields name, cover, cover.url , storyline ; limit 10; where storyline != null ;',
+                          );
+
+                          var parsedJson  = json.decode(response.body);
+
+                          debugPrint(parsedJson.toString());
+                                   
+                          
                         },
-                        
-                        body: 'search "$TitleName"; fields name, cover, cover.url , storyline ; limit 10; where storyline != null ;',
-                        );
 
-                        var parsedJson  = json.decode(response.body);
+                        ),
+                     
+                       ),
+                    
+                      )
+                    ),
 
-                        debugPrint(parsedJson.toString());
-                                 
-                        
-                      },
-
-                      ),
                    
-                     ),
-                  
-                    )
+
+                  ],
                   ),
-
-                 
-
-                ],
                 ),
               ),
-            ),
-          ), 
+            ), 
 
 
-        floatingActionButton: FloatingActionButton(
+          floatingActionButton: FloatingActionButton(
+            
+            onPressed: () {
+
+              Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const showlist()),
+              );
+            
+            },
+
+            child: Icon(Icons.next_plan),
           
-          onPressed: () {
+          ),
 
-            Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const showlist()),
-            );
-          
-          },
 
-          child: Icon(Icons.next_plan),
-        
+
+
+
+
+
         ),
-
-
-
-
-
-
-
-      );
+    );
   }
 }
