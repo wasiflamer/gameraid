@@ -54,7 +54,7 @@ class _showlistState extends State<showlist> {
 
           foregroundColor: const  Color(0xff3943B7),
           backgroundColor: const  Color(0xffffffff),
-          title:  Text(widget.search_term),
+          title:  Text(widget.search_term.toUpperCase()),
           ),
 
           backgroundColor: Colors.white,
@@ -74,9 +74,9 @@ class _showlistState extends State<showlist> {
                             gridDelegate: const  SliverGridDelegateWithFixedCrossAxisCount(
                            
                             crossAxisCount: 2,
-                            crossAxisSpacing: 8,
-                            mainAxisSpacing: 8,
-                            mainAxisExtent: 240,
+                            crossAxisSpacing: 0,
+                            mainAxisSpacing: 10,
+                            mainAxisExtent: 270,
                       
                             ),
 
@@ -86,9 +86,9 @@ class _showlistState extends State<showlist> {
                               return Card(
 
                               elevation: 6,
-                
+
                               // card style
-                              margin:  const EdgeInsets.only(top: 9 , left: 9 , right: 9),           
+                              margin:  const EdgeInsets.only(top: 10, left: 9, right: 9),           
                               color:   Colors.white,                   
                               shape:   const RoundedRectangleBorder(
                               borderRadius: BorderRadius.all(Radius.elliptical(20,20)),
@@ -98,65 +98,46 @@ class _showlistState extends State<showlist> {
                                 child: Container(
 
                                   decoration: BoxDecoration(
+
                                     borderRadius:BorderRadius.all(Radius.elliptical(20,20)),
                                     image: DecorationImage(
                                       fit: BoxFit.cover,  //I assumed you want to occupy the entire space of the card
                                       image: NetworkImage(
                                         Game_Cover,
-                      
                                       ),
                                     ),
                                   ),
-
-
 
                                   child: Align(
                                     alignment: FractionalOffset.bottomCenter,
 
                                     child: ListTile(
+                                      
                                       contentPadding: EdgeInsets.only(bottom: 10 , left: 10 , right: 10),
                                        
-                                      textColor: Color(0xff3943B7),
-                                       
+                                      textColor: Color.fromARGB(255, 249, 249, 250),
+             
                                        subtitle: Container(
 
-                                       decoration: BoxDecoration(
-                                       
-                                       color: Color.fromARGB(255, 255, 255, 255),
+                                       padding: EdgeInsets.only(left: 10 , right: 10 , bottom: 10 , top: 10),
 
-                                       borderRadius:  BorderRadius.all(Radius.elliptical(8,8)),
-                                       
+                                       decoration: BoxDecoration(
+
+                                       color: Color.fromARGB(202, 57, 67, 183),
+                                       borderRadius:  BorderRadius.all(Radius.elliptical(15,15)),
                                         ),
 
-
-                                         child: RatingBar.builder(
-
-                                          itemSize: 20,
-                                       
-                                          ignoreGestures: true,
-                                          unratedColor: Colors.grey,
-                                          initialRating: 3,
-                                          minRating: 1,
-                                          direction: Axis.horizontal,
-                                          allowHalfRating: true,
-                                          itemCount: 5,
-                                          itemPadding: EdgeInsets.symmetric(horizontal: 6.0),
-                                          itemBuilder: (context, _) => Icon(
-                                            Icons.star,
-                                            color: Color(0xff3943B7),
-                                           
-                                          ),
-                                          onRatingUpdate: (rating) {
-                                           
-                                          },
-                                      ),
-                                       ),
+                                      child:  Text(widget.gameinfo_model.name,
+                                       overflow: TextOverflow.ellipsis,
+                                        maxLines: 3,
+                                         style: TextStyle( fontFamily: 'Mulish-Bold', fontSize: 18,)),
 
                                       ),
                                     ),
                                   ),
 
 
+                              ),
                               );
                             }), 
               ),
