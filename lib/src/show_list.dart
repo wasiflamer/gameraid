@@ -1,6 +1,6 @@
 
 
-// ignore_for_file: camel_case_types, prefer_const_constructors
+// ignore_for_file: camel_case_types, prefer_const_constructors, non_constant_identifier_names, must_be_immutable, unused_import, unused_local_variable
 
 import 'dart:convert';
 
@@ -9,14 +9,13 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'api_helper.dart';
 
-
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class showlist extends StatefulWidget {
-   showlist({super.key , required this.gameinfo_model ,  required this.search_term });
-   late  dynamic gameinfo_model ;
+   showlist({super.key, required this.search_term, required this.returned_rows, required this.rawdata });
    late  dynamic search_term ;
-
+   late  dynamic returned_rows;
+   late  dynamic rawdata;
 
   @override
   State<showlist> createState() => _showlistState();
@@ -28,14 +27,35 @@ class _showlistState extends State<showlist> {
   @override
   Widget build(BuildContext context) {
 
+    // how many cards to show
+    var matched_results  = widget.returned_rows;
 
-    String replace_cover = widget.gameinfo_model.cover_url.replaceFirst(RegExp('t_thumb'), 't_cover_big'); 
-    String Game_Cover    = ('https:$replace_cover');
-    var matched_results  = widget.gameinfo_model.toString().length;
+    // [method 1 cover fetch ]
+    // repalce multiples covers and add them into a list
+    var list_of_covers = [];
 
+    for (int i = 0 ; i < matched_results ; i++)
+    {
     
+      // get first url 
+      String current_url =  widget.rawdata[i]['cover']['url'];
+      
+      // change it to cover
+      String big_got = current_url.replaceFirst(RegExp('t_thumb'), 't_cover_big');
+      String actual_cover = ('https:$big_got'); 
+
+      // add to new list 
+      list_of_covers.add(actual_cover);
+
+    }
+
+     
+    // [for method two cover fetch ]
+    // String prefix = ('https:');
+
     
     return Container(
+      
 
       decoration: BoxDecoration(
       image: DecorationImage(
@@ -82,16 +102,16 @@ class _showlistState extends State<showlist> {
 
                             itemCount: matched_results,
                             itemBuilder: (BuildContext context, index) {
-                        
+      
                               return Card(
 
-                              elevation: 6,
+                              elevation: 8,
 
                               // card style
                               margin:  const EdgeInsets.only(top: 10, left: 9, right: 9),           
                               color:   Colors.white,                   
                               shape:   const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.all(Radius.elliptical(20,20)),
+                              borderRadius: BorderRadius.all(Radius.elliptical(10,10)),
                               ),
               
 
@@ -99,43 +119,47 @@ class _showlistState extends State<showlist> {
 
                                   decoration: BoxDecoration(
 
-                                    borderRadius:BorderRadius.all(Radius.elliptical(20,20)),
+                                    borderRadius:BorderRadius.all(Radius.elliptical(10,10)),
                                     image: DecorationImage(
-                                      fit: BoxFit.cover,  //I assumed you want to occupy the entire space of the card
+                                      fit: BoxFit.cover, 
                                       image: NetworkImage(
-                                        Game_Cover,
+
+                                      // [first method ] , fast fetch
+                                      list_of_covers[index],
+                                    
+                                      // [second method ] slow fetch 
+                                     // prefix + widget.rawdata[index]['cover']['url'].replaceFirst(RegExp('t_thumb'), 't_cover_big')
+
                                       ),
                                     ),
+
                                   ),
 
                                   child: Align(
                                     alignment: FractionalOffset.bottomCenter,
 
-                                    child: ListTile(
+                                    child: ListTile(     
                                       
-                                      contentPadding: EdgeInsets.only(bottom: 10 , left: 10 , right: 10),
-                                       
-                                      textColor: Color.fromARGB(255, 249, 249, 250),
-             
+                                      contentPadding: EdgeInsets.only(bottom: 10 , left: 10 , right: 10),                                       
+                                      textColor: Colors.white,
+                                      
                                        subtitle: Container(
-
-                                       padding: EdgeInsets.only(left: 10 , right: 10 , bottom: 10 , top: 10),
+                                       padding: EdgeInsets.only(left: 9 , right: 9 , bottom: 10 , top: 10),
 
                                        decoration: BoxDecoration(
 
-                                       color: Color.fromARGB(202, 57, 67, 183),
-                                       borderRadius:  BorderRadius.all(Radius.elliptical(15,15)),
+                                          color: Color.fromARGB(204, 57, 67, 183),
+                                          borderRadius:  BorderRadius.all(Radius.elliptical(10,10)),
                                         ),
 
-                                      child:  Text(widget.gameinfo_model.name,
+                                      child:  Text(widget.rawdata[index]['name'],
                                        overflow: TextOverflow.ellipsis,
                                         maxLines: 3,
-                                         style: TextStyle( fontFamily: 'Mulish-Bold', fontSize: 18,)),
+                                         style: TextStyle( fontFamily: 'Mulish-Bold', fontSize: 15,)),
 
                                       ),
                                     ),
                                   ),
-
 
                               ),
                               );

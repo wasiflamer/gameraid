@@ -36,7 +36,7 @@ runApp(MaterialApp(
             foregroundColor: buildMaterialColor(const Color.fromARGB(255, 255, 255, 255)),
             ),
 
-            snackBarTheme: SnackBarThemeData( contentTextStyle: TextStyle(color: Color(0xff3943B7) , fontFamily: 'Russo One' , fontSize: 18 ),
+            snackBarTheme: SnackBarThemeData( contentTextStyle: TextStyle(color: Color(0xff3943B7), fontFamily: 'Russo One' , fontSize: 18 ),
             backgroundColor: buildMaterialColor(Colors.white),
             actionTextColor: buildMaterialColor(const Color.fromARGB(255, 40, 178, 202)),
             

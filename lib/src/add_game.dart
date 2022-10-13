@@ -3,13 +3,11 @@
 // ignore_for_file: camel_case_types, prefer_const_constructors, use_build_context_synchronously, non_constant_identifier_names, unused_local_variable
 
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:collectify/src/show_list.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-import 'api_helper.dart';
-import 'homescreen.dart';
+
 
 
  /*------------ snack bar deleted note ---------- */ 
@@ -180,67 +178,47 @@ class _add_gameState extends State<add_game> {
 
 
           floatingActionButton: FloatingActionButton(
-   
-            
+    
              onPressed: ()  async {
-               
+
               var  TitleName = titleController.text; 
 
-              
-              // get game details (cover, name, story_line)
+              // get game details (cover, name)
               var response = await post(Uri.parse('https://api.igdb.com/v4/games'),
               headers: {
 
               "Client-ID": "qy0014f6bb0s49s8iffaxs9fu05v1s",
               "Authorization": "Bearer vrzwedsndtzt2go6gp4yiy21114yzh"
-              },
+
+              }, 
               
-              body: 'search "$TitleName"; fields name, cover, cover.url , storyline ; limit 8 ; where storyline != null;',
+               body: 'fields name , cover , cover.url ; search "$TitleName"; where version_parent = null; where cover != null; limit 40 ;',
+
               );
 
-              
-              var parsedJson  = json.decode(response.body);
-
-              if (response.statusCode == 200 )
-              {
-
-                 dynamic looper = parsedJson.toString().length;
-
-                 debugPrint(looper.toString());
-
-                  if ( looper == null)
-                  {
+              var parsedjson = json.decode(response.body);
 
 
-                    
-
-                  }
-                  else {
-                  
-                  var game_model  = gameinfo_model(parsedJson[0]['id'] , parsedJson[0]['name'] , parsedJson[0]['storyline'] , parsedJson[0]['cover']['url'] );
-
-                  // go to the list view 
-                  Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => showlist(gameinfo_model: game_model, search_term:titleController.text)));    
-
-                  }
-
-            
-                // show a snackbar stating no game with that title found
+              var returned_rows = parsedjson.length.toString();
 
 
-              }
-              
+            //  go to the list view 
 
-            
-
-              
-             
-            
+              Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => showlist(
+               search_term:titleController.text,
+                returned_rows : int.parse(returned_rows),
+                rawdata: parsedjson,
+                
+                
+                )
+                )
+              );    
+      
             },
 
-            child: Icon(Icons.next_plan),
+            child: Icon(Icons.skip_next),
           
           ),
 
@@ -253,12 +231,36 @@ class _add_gameState extends State<add_game> {
 
 class gameinfo_model {
 
-  late int id ; 
+  late String id ; 
   late String name ;
-  late String story_line ; 
-   late String cover_url ; 
+  late String cover_url ; 
 
 
-  gameinfo_model(this.id, this.name, this.story_line , this.cover_url);
+  gameinfo_model(this.id, this.name, this.cover_url);
   
+}
+
+
+
+class test {
+ 
+  final int id;
+  final String name;
+  final String cover_url;
+ 
+
+  const test({
+    required this.id,
+    required this.name,
+    required this.cover_url,
+  });
+
+  factory test.fromJson(Map<String, dynamic> json) {
+    return test(
+      id: json['id'] as int,
+      name: json['name'] as String,
+      cover_url: json['cover']['url'] as String,
+      
+    );
+  }
 }
