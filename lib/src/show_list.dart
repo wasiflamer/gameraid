@@ -7,7 +7,6 @@ import 'dart:convert';
 import 'package:collectify/src/add_game.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-import 'api_helper.dart';
 
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
@@ -103,65 +102,74 @@ class _showlistState extends State<showlist> {
                             itemCount: matched_results,
                             itemBuilder: (BuildContext context, index) {
       
-                              return Card(
+                              return GestureDetector(
 
-                              elevation: 8,
+                                onTap: () {
+                                  debugPrint('go done it waseem.');
+                                },
 
-                              // card style
-                              margin:  const EdgeInsets.only(top: 10, left: 9, right: 9),           
-                              color:   Colors.white,                   
-                              shape:   const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.all(Radius.elliptical(10,10)),
-                              ),
-              
-
-                                child: Container(
-
-                                  decoration: BoxDecoration(
-
-                                    borderRadius:BorderRadius.all(Radius.elliptical(10,10)),
-                                    image: DecorationImage(
-                                      fit: BoxFit.cover, 
-                                      image: NetworkImage(
-
-                                      // [first method ] , fast fetch
-                                      list_of_covers[index],
-                                    
-                                      // [second method ] slow fetch 
-                                     // prefix + widget.rawdata[index]['cover']['url'].replaceFirst(RegExp('t_thumb'), 't_cover_big')
-
-                                      ),
-                                    ),
-
-                                  ),
-
-                                  child: Align(
-                                    alignment: FractionalOffset.bottomCenter,
-
-                                    child: ListTile(     
+                                child: Card(
+                              
+                                elevation: 8,
+                              
+                                // card style
+                                margin:  const EdgeInsets.only(top: 10, left: 9, right: 9),           
+                                color:   Colors.white,                   
+                                shape:   const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.all(Radius.elliptical(10,10)),
+                                ),
+                                            
+                              
+                                  child: Container(
+                              
+                                    decoration: BoxDecoration(
+                              
+                                      borderRadius:BorderRadius.all(Radius.elliptical(10,10)),
+                                      image: DecorationImage(
+                                        fit: BoxFit.cover, 
+                              
+                                        filterQuality: FilterQuality.high,
+                                        image: NetworkImage(
+                              
+                                        // [first method ] , fast fetch
+                                        list_of_covers[index],
                                       
-                                      contentPadding: EdgeInsets.only(bottom: 10 , left: 10 , right: 10),                                       
-                                      textColor: Colors.white,
-                                      
-                                       subtitle: Container(
-                                       padding: EdgeInsets.only(left: 9 , right: 9 , bottom: 10 , top: 10),
-
-                                       decoration: BoxDecoration(
-
-                                          color: Color.fromARGB(204, 57, 67, 183),
-                                          borderRadius:  BorderRadius.all(Radius.elliptical(10,10)),
+                                        // [second method ] slow fetch 
+                                       // prefix + widget.rawdata[index]['cover']['url'].replaceFirst(RegExp('t_thumb'), 't_cover_big')
+                              
                                         ),
-
-                                      child:  Text(widget.rawdata[index]['name'],
-                                       overflow: TextOverflow.ellipsis,
-                                        maxLines: 3,
-                                         style: TextStyle( fontFamily: 'Mulish-Bold', fontSize: 15,)),
-
+                                      ),
+                              
+                                    ),
+                              
+                                    child: Align(
+                                      alignment: FractionalOffset.bottomCenter,
+                              
+                                      child: ListTile(     
+                                        
+                                        contentPadding: EdgeInsets.only(bottom: 10 , left: 10 , right: 10),                                       
+                                        textColor: Colors.white,
+                                        
+                                         subtitle: Container(
+                                         padding: EdgeInsets.only(left: 9 , right: 9 , bottom: 10 , top: 10),
+                              
+                                         decoration: BoxDecoration(
+                              
+                                            color: Color.fromARGB(204, 57, 67, 183),
+                                            borderRadius:  BorderRadius.all(Radius.elliptical(10,10)),
+                                          ),
+                              
+                                        child:  Text(widget.rawdata[index]['name'],
+                                         overflow: TextOverflow.ellipsis,
+                                          maxLines: 3,
+                                           style: TextStyle( fontFamily: 'Mulish-Bold', fontSize: 15,)),
+                              
+                                        ),
                                       ),
                                     ),
-                                  ),
-
-                              ),
+                              
+                                ),
+                                ),
                               );
                             }), 
               ),

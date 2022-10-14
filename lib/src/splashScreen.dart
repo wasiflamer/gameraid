@@ -35,17 +35,12 @@ class _SplashScreenState extends State<SplashScreen> {
          decoration: const BoxDecoration(
           color: Colors.white,
 
-          // image: DecorationImage(
-          // image: AssetImage("images/background/pattern_2/image.jpg"),
-          // fit: BoxFit.cover,
-          // ),
-
           ),
 
         //logo image 
         
         child: Center(
-          child: Image.asset('images/logo.jpg', height: 120),
+          child: Image.asset('images/logo.png', height: 320),
         ),
       ),
     );

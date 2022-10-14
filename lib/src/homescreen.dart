@@ -82,8 +82,8 @@ class _homescreenState extends State<homescreen> {
        DrawerHeader(
         decoration: BoxDecoration(
          image: DecorationImage(
-                  image: AssetImage('images/logo.jpg'),
-                     fit: BoxFit.cover)
+                  image: AssetImage('images/logo.png'),
+                     fit: BoxFit.contain)
               ),
           child: null,
         ),

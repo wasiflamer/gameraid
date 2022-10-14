@@ -108,7 +108,7 @@ class _add_gameState extends State<add_game> {
               // ignore: prefer_const_literals_to_create_immutables
               children: <Widget>[
 
-                    Padding(padding: EdgeInsets.only(left: 7 , right: 7 , top: 10),
+                    Padding(padding: EdgeInsets.only(left: 7 , right: 7 , top: 20),
                     
                         child: Card(
 
@@ -192,7 +192,7 @@ class _add_gameState extends State<add_game> {
 
               }, 
               
-               body: 'fields name , cover , cover.url ; search "$TitleName"; where version_parent = null; where cover != null; limit 40 ;',
+               body: 'fields name , cover , cover.url ; search "$TitleName"; where version_parent = null; where cover != null; limit 50 ;',
 
               );
 
