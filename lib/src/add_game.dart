@@ -71,10 +71,6 @@ class _add_gameState extends State<add_game> {
 
       child: Scaffold(
 
-       
-
-        
-
           appBar: AppBar(
 
           titleTextStyle: TextStyle(color:  Color(0xff3943B7), fontSize: 20 , fontFamily: 'Russo One',),
@@ -196,21 +192,22 @@ class _add_gameState extends State<add_game> {
 
               );
 
+
+              // parse the data 
               var parsedjson = json.decode(response.body);
 
-
+              // check how many rows returned 
               var returned_rows = parsedjson.length.toString();
 
 
-            //  go to the list view 
-
+              //  go to the list view 
               Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => showlist(
-               search_term:titleController.text,
-                returned_rows : int.parse(returned_rows),
-                rawdata: parsedjson,
-                
+
+                search_term   :  titleController.text,
+                returned_rows :  int.parse(returned_rows),
+                rawdata       :  parsedjson,
                 
                 )
                 )

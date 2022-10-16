@@ -26,11 +26,6 @@ class _homescreenState extends State<homescreen> {
       debugShowCheckedModeBanner: false,
 
       home: Scaffold(
-
-
-     
-
-        
         
         appBar: AppBar(
         titleTextStyle: TextStyle(color:  Color(0xff3943B7), fontSize: 20 , fontFamily: 'Russo One',),
@@ -50,6 +45,7 @@ class _homescreenState extends State<homescreen> {
               },
               
               items: const [
+
                 DropdownMenuItem(value: 'Date', child: Text('Order by Date')),
                 DropdownMenuItem(value: 'Release', child: Text('Order by Release')),
                 DropdownMenuItem(value: 'Rating', child: Text('Order by Rating')),

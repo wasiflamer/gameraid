@@ -11,7 +11,6 @@ import 'src/splashScreen.dart';
 
 void main() {
 
-
     // for using async if needed in main 
     WidgetsFlutterBinding.ensureInitialized();
 
