@@ -29,7 +29,7 @@ void main() {
 runApp(MaterialApp(
 
      theme: ThemeData(
-            primarySwatch: buildMaterialColor(Color(0xff3943B7)),
+            primarySwatch: buildMaterialColor(Color(0xffe07a5f)),
             scaffoldBackgroundColor: Colors.transparent,
             appBarTheme: AppBarTheme(
             foregroundColor: buildMaterialColor(const Color.fromARGB(255, 255, 255, 255)),

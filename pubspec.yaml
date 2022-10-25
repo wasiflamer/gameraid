@@ -39,6 +39,8 @@ dependencies:
   http: ^0.13.5
   flutter_rating_bar: ^4.0.1
   youtube_player_flutter: ^8.1.1
+  bottom_navy_bar: ^6.0.0
+  bulleted_list: ^0.0.1+0.1a
  
 
 dev_dependencies:
@@ -68,16 +70,32 @@ flutter:
     - family: Mulish-Bold
       fonts:
         - asset: google_fonts/Mulish-ExtraBold.ttf
+
+    - family: OpenSans
+      fonts:
+        - asset: google_fonts/opensans/static/OpenSans/OpenSans-Regular.ttf
+
+    - family: OpenSans-medium
+      fonts:
+        - asset: google_fonts/opensans/static/OpenSans/OpenSans-Medium.ttf
     
        
   assets:
      - images/logo.png
+     - images/cover.png
      - images/background/2.png
      - images/404.png
      - images/background/pattern_1/image.jpg
      - images/background/pattern_2/image.jpg
      - images/background/pattern_3/image.jpg
-
+     - images/404.webp
+     - images/placeholder/action.jpg
+     - images/placeholder/Fighting.jpg
+     - images/placeholder/Shooter.jpg
+     - images/placeholder/open_world.jpg
+     - images/placeholder/Third_Person.png
+     - images/placeholder/Simulator.jpg
+     - images/placeholder/Racing.jpg
 
 
   # The following line ensures that the Material Icons font is

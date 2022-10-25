@@ -1,103 +1,138 @@
 
+// ignore_for_file: camel_case_types, non_constant_identifier_names, use_build_context_synchronously
 
-// ignore_for_file: camel_case_types, prefer_const_constructors, non_constant_identifier_names, must_be_immutable, unused_import, unused_local_variable, use_build_context_synchronously
-
+import 'dart:async';
 import 'dart:convert';
-
-import 'package:collectify/src/add_game.dart';
+import 'package:collectify/src/game_details.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'game_details.dart';
+ 
 
-class showlist extends StatefulWidget {
-   showlist({super.key, required this.search_term, required this.returned_rows, required this.rawdata });
-   late  dynamic search_term ;
-   late  dynamic returned_rows;
-   late  dynamic rawdata;
+class discover extends StatefulWidget {
+  const discover({super.key});
 
   @override
-  State<showlist> createState() => _showlistState();
+  State<discover> createState() => _discoverState();
 }
 
-class _showlistState extends State<showlist> {
+class _discoverState extends State<discover>  {
+
+
+    var unix_time_now = (DateTime.now().millisecondsSinceEpoch / 1000).round() ;
+
+
+   // keep tracks of total games
+   late int avail_games ;
+
+    /*----------- stream controller -----------------------*/
+
+    final StreamController _streamController = StreamController();
+    late Timer _timer;
+
+    dynamic getData() async {
+    
+    dynamic data = await post(Uri.parse('https://api.igdb.com/v4/games'),
+      
+    headers: {
+
+    "Client-ID": "qy0014f6bb0s49s8iffaxs9fu05v1s",
+    "Authorization": "Bearer vrzwedsndtzt2go6gp4yiy21114yzh"
+
+    }, 
+
+    body: 'f name, cover, cover.url, summary, storyline, first_release_date, platforms.name, total_rating, screenshots.image_id, genres.name ; where first_release_date < $unix_time_now & cover != null & version_parent = null & total_rating != null ; sort first_release_date desc ; limit 100 ;',
+
+    );
+
+    var parsed_data = json.decode(data.body);
+
+     avail_games = int.parse(parsed_data.length.toString());
+    
+    //Add your data to stream
+    _streamController.add(parsed_data);
+    
+  }
+
+  @override
+  void initState() {
+    getData();
+
+    //Check the database every 5 Minutes
+    _timer = Timer.periodic(const Duration(minutes: 10), (timer) => getData());
+
+    super.initState();
+
+  }
+
+  @override
+  void dispose() {
+    //cancel the timer
+    if (_timer.isActive) _timer.cancel();
+
+    super.dispose();
+  }
 
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)   { 
 
-    // how many cards to show
-    var matched_results  = widget.returned_rows;
-
-    // [method 1 cover fetch ]
-    // repalce multiples covers and add them into a list
-    var list_of_covers = [];
-
-    for (int i = 0 ; i < matched_results ; i++)
-    {
-    
-      // get first url 
-      String current_url =  widget.rawdata[i]['cover']['url'];
-      
-      // change it to cover
-      
-      String big_got = current_url.replaceFirst(RegExp('t_thumb'), 't_720p');
-      //String big_got = current_url.replaceFirst(RegExp('t_thumb'), 't_cover_big');
-      String actual_cover = ('https:$big_got'); 
-
-      // add to new list 
-      list_of_covers.add(actual_cover);
-
-    }
-
-     
     // [for method two cover fetch ]
-    // String prefix = ('https:');
+    String prefix = ('https:');
 
-    
     return Scaffold(
-
-        appBar: AppBar(
-
-        titleTextStyle: TextStyle(color:  Color(0xffe07a5f), fontSize: 20 , fontFamily: 'Mulish-Bold',),
-
-        foregroundColor: Color(0xffe07a5f),
-        backgroundColor: const  Color(0xffffffff),
-        title:  Text(widget.search_term.toUpperCase()),
-        ),
-
-        backgroundColor: Colors.white,
-
-        bottomNavigationBar: BottomAppBar(
-
-        color: const Color(0xffffffff),
-
-        elevation: 8,
-        child: Container(height: 40.0),
-        ),
-
-          extendBody: true,
-
-          body: GridView.builder(
-
-                          gridDelegate: const  SliverGridDelegateWithFixedCrossAxisCount(
-                         
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 0,
-                          mainAxisSpacing: 8,
-                          mainAxisExtent: 270,
-                    
-                          ),
-
-                          itemCount: matched_results,
-                          itemBuilder: (BuildContext context, index) {
+      
+      backgroundColor: Colors.white,
+      extendBody: true,
     
-                            return GestureDetector(
+      body: Center(
+        child: StreamBuilder(
+                   stream: _streamController.stream,
+                   builder: ( BuildContext context, AsyncSnapshot snapshot) 
+                   {
+                   
+                    if (snapshot.connectionState == ConnectionState.waiting)
+                    {
+                      return const CircularProgressIndicator(color: Color(0xff3d405b),);   	
+                    }
+                    else if (snapshot.connectionState == ConnectionState.active || snapshot.connectionState == ConnectionState.done)
+                    {
+                      
+                        // if data is empty 
+                        if ( avail_games == 0 )
+                        {
+
+                            return const CircularProgressIndicator(color: Color(0xff3d405b),);                        
+                          
+                            
+                        }
+
+                        if (snapshot.hasError) 
+                        {
+                            return const CircularProgressIndicator(color: Color(0xff3d405b),);
+                        } 
+                        else if (snapshot.hasData)
+                        {
+
+                            return GridView.builder(
+
+                            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                            mainAxisSpacing: 8,
+                            crossAxisSpacing: 0,
+                            maxCrossAxisExtent:300,
+                            mainAxisExtent: 270,
+                      
+                            ),
+
+                            itemCount: snapshot.data.length,
+                            itemBuilder: (BuildContext context, index) {
+
+                        
+                              return GestureDetector(
 
                               onTap: () async {
 
-                               var game_identifier = int.parse(widget.rawdata[index]['id'].toString()); 
+                               var game_identifier = int.parse(snapshot.data[index]['id'].toString()); 
 
                                // videos response              
                                var response = await post(Uri.parse('https://api.igdb.com/v4/game_videos'),
@@ -121,10 +156,10 @@ class _showlistState extends State<showlist> {
                                 String genres_joined ;
                                 List mad_king = [] ;
 
-                                if ( widget.rawdata[index]['genres'] != null )
+                                if ( snapshot.data[index]['genres'] != null )
                                 { 
 
-                                      List raw_genres = widget.rawdata[index]['genres']; 
+                                      List raw_genres = snapshot.data[index]['genres']; 
                                       var genres_list = [];
                   
                                       for (int i = 0 ; i <  int.parse(raw_genres.length.toString()); i++)
@@ -151,10 +186,10 @@ class _showlistState extends State<showlist> {
                                 // fetch screen shots 
                                 var ss_list = [];
                                
-                                if ( widget.rawdata[index]['screenshots'] != null )
+                                if ( snapshot.data[index]['screenshots'] != null )
                                 {
                                    
-                                      List raw_ss = widget.rawdata[index]['screenshots']; 
+                                      List raw_ss = snapshot.data[index]['screenshots']; 
                   
                                       for (int i = 0 ; i <  int.parse(raw_ss.length.toString()); i++)
                                       {                       
@@ -168,10 +203,10 @@ class _showlistState extends State<showlist> {
                                 double star_rating = 0 ; 
                                 String verdict = '';
 
-                                if ( widget.rawdata[index]['total_rating'] != null )
+                                if ( snapshot.data[index]['total_rating'] != null )
                                 {
 
-                                   double ratings_game = widget.rawdata[index]['total_rating'];
+                                   double ratings_game = snapshot.data[index]['total_rating'];
 
                                    int simple_rating = ratings_game.round();
 
@@ -255,11 +290,11 @@ class _showlistState extends State<showlist> {
                                 //  fetch platforms
                                 String platforms_joined ;
 
-                                if ( widget.rawdata[index]['platforms'] != null )
+                                if ( snapshot.data[index]['platforms'] != null )
                                 { 
 
                                      
-                                      List raw_platforms = widget.rawdata[index]['platforms']; 
+                                      List raw_platforms = snapshot.data[index]['platforms']; 
                                       var platforms_list = [];
                   
                                       for (int i = 0 ; i <  int.parse(raw_platforms.length.toString()); i++)
@@ -285,11 +320,11 @@ class _showlistState extends State<showlist> {
                                     
                                       String year_only ;
 
-                                      if (widget.rawdata[index]['first_release_date'] != null)
+                                      if (snapshot.data[index]['first_release_date'] != null)
                                       {
 
                                         // fetching date
-                                        String unix_date = widget.rawdata[index]['first_release_date'].toString(); 
+                                        String unix_date = snapshot.data[index]['first_release_date'].toString(); 
                                         String fulldate  = DateTime.fromMillisecondsSinceEpoch(int.parse(unix_date) * 1000, isUtc: true).toString();
                                         year_only = fulldate.substring(0,4);
                                         
@@ -302,7 +337,7 @@ class _showlistState extends State<showlist> {
                                       int video_is_present = 1;
 
                                       // fetching summary
-                                      String summary = widget.rawdata[index]['summary'].toString();
+                                      String summary = snapshot.data[index]['summary'].toString();
 
                                     
                                       Navigator.push(
@@ -310,10 +345,10 @@ class _showlistState extends State<showlist> {
                                       MaterialPageRoute(builder: (context) => game_details(
 
                                         // cover url
-                                        general_id: widget.rawdata[index]['cover']['url'].toString(),
+                                        general_id: snapshot.data[index]['cover']['url'].toString(),
                                         video_is_present: video_is_present,
 
-                                        game_name    : widget.rawdata[index]['name'].toString(),
+                                        game_name    : snapshot.data[index]['name'].toString(),
                                         release_year : year_only,
                                         summary      : summary, 
                                         platforms    : platforms_joined, 
@@ -335,13 +370,25 @@ class _showlistState extends State<showlist> {
                                     int video_is_present = 0 ;
 
                                       // fetching date
-                                      String unix_date = widget.rawdata[index]['first_release_date'].toString(); 
-                                      String fulldate  = DateTime.fromMillisecondsSinceEpoch(int.parse(unix_date) * 1000, isUtc: true).toString();
-                                      String year_only = fulldate.substring(0,4);
+                                      String year_only ;
+
+                                      if (snapshot.data[index]['first_release_date'] != null)
+                                      {
+
+                                        // fetching date
+                                        String unix_date = snapshot.data[index]['first_release_date'].toString(); 
+                                        String fulldate  = DateTime.fromMillisecondsSinceEpoch(int.parse(unix_date) * 1000, isUtc: true).toString();
+                                        year_only = fulldate.substring(0,4);
+                                        
+                                      }
+                                      else
+                                      {
+                                        year_only = 'Release Year Unknown';
+                                      }
 
 
                                     // fetching summary
-                                    String summary = widget.rawdata[index]['summary'].toString();
+                                    String summary = snapshot.data[index]['summary'].toString();
 
                                     var video_id = parsed_video_id[0]['video_id'].toString(); 
                                     // send video to details page 
@@ -352,7 +399,7 @@ class _showlistState extends State<showlist> {
                                         general_id: video_id,
                                         video_is_present: video_is_present ,
 
-                                        game_name    : widget.rawdata[index]['name'].toString(),
+                                        game_name    : snapshot.data[index]['name'].toString(),
                                         release_year : year_only,
                                         summary      : summary, 
                                         platforms    : platforms_joined, 
@@ -371,76 +418,88 @@ class _showlistState extends State<showlist> {
 
                              },
 
-                              child: Card(
-                            
-                              elevation: 10,
-                          
-                              // card style
-                              margin:  const EdgeInsets.only(top: 10, left: 9, right: 9),           
-                              color:   Colors.white,                   
-                              shape:   const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.all(Radius.elliptical(10,10)),
-                              ),
-                                          
-                            
+
+                                child: Card ( 
+                              
+                                elevation: 8,
+        
+                                // card style
+                                margin:  const EdgeInsets.only(top: 10, left: 9, right: 9),           
+                                color:   Colors.white,                   
+                                shape:   const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.all(Radius.elliptical(10,10)),
+                                ),
+                              
                                 child: Container(
-                 
-                                  decoration: BoxDecoration(
-
-                                    border: Border.all(width: 3.0, color: Color.fromARGB(255, 0, 0, 0) , strokeAlign: StrokeAlign.inside),
-                            
-                                    borderRadius:BorderRadius.all(Radius.elliptical(10,10)),
-                                    image: DecorationImage(
-                                      fit: BoxFit.cover,                       
-                                      filterQuality: FilterQuality.high,
-                                      isAntiAlias: true,
-                                      image: NetworkImage(
-
-                                      // [first method ] , fast fetch
-                                      list_of_covers[index],
-                                    
-                                      // [second method ] slow fetch 
-                                      // prefix + widget.rawdata[index]['cover']['url'].replaceFirst(RegExp('t_thumb'), 't_cover_big')
-                            
-                                      ),
-                                    ),
-                            
-                                  ),
-                            
-                                  child: Align(
-                                    alignment: FractionalOffset.bottomCenter,
-                            
-                                    child: ListTile(     
-
-                                      
-                                      contentPadding: EdgeInsets.only(bottom: 10 , left: 10 , right: 10),                                       
-                                      // textColor:Color(0xff3d405b),
-                                         textColor: Colors.white,
+                                               
+                                    decoration: BoxDecoration(
+                              
+                                      border: Border.all(width: 3.0, color: const Color.fromARGB(255, 0, 0, 0) , strokeAlign: StrokeAlign.inside),
+                                                          
+                                      borderRadius: const BorderRadius.all(Radius.elliptical(10,10)),
+                                      image: DecorationImage(
+                                        fit: BoxFit.cover,                       
+                                        filterQuality: FilterQuality.high,
+                                        isAntiAlias: true,
+                                        image: NetworkImage(
+                              
                                        
-                          
-                                       subtitle: Container(
-                                       padding: EdgeInsets.only(left: 9 , right: 9 , bottom: 10 , top: 10),
-                            
-                                       decoration: BoxDecoration(
-                            
-                                          color: Color(0xff3d405b),
-                                          //color: Color.fromARGB(192, 57, 67, 183),
-                                          borderRadius:  BorderRadius.all(Radius.elliptical(10,10)),
+                                      
+                                        // [second method ] slow fetch 
+                                        prefix + snapshot.data[index]['cover']['url'].replaceFirst(RegExp('t_thumb'), 't_cover_big')
+                                                          
                                         ),
-                            
-                                      child:  Text(widget.rawdata[index]['name'],
-                                       overflow: TextOverflow.ellipsis,
-                                        maxLines: 3,
-                                         style: TextStyle( fontFamily: 'Mulish-Bold', fontSize: 15,)),
-                            
+                                      ),
+                                                          
+                                    ),
+                                                          
+                                    child: Align(
+                                      alignment: FractionalOffset.bottomCenter,
+                                                          
+                                      child: ListTile(     
+                              
+                                        
+                                        contentPadding: const EdgeInsets.only(bottom: 10 , left: 10 , right: 10),                                       
+                                        // textColor:Color(0xff3d405b),
+                                           textColor: Colors.white,
+                                         
+                                                        
+                                         subtitle: Container(
+                                         padding: const EdgeInsets.only(left: 9 , right: 9 , bottom: 10 , top: 10),
+                                                          
+                                         decoration: const BoxDecoration(
+                                                          
+                                            color: Color(0xff3d405b),
+                                            //color: Color.fromARGB(192, 57, 67, 183),
+                                            borderRadius:  BorderRadius.all(Radius.elliptical(10,10)),
+                                          ),
+                                                          
+                                        child:  Text(snapshot.data[index]['name'],
+                                         overflow: TextOverflow.ellipsis,
+                                          maxLines: 3,
+                                           style: const TextStyle( fontFamily: 'Mulish-Bold', fontSize: 15,)),
+                                                          
+                                        ),
                                       ),
                                     ),
-                                  ),
-                            
-                              ),
-                              ),
-                            );
-                          }), 
-            );
-    }
+                                                          
+                                ),
+                                ),
+                              );
+                            });
+                            }  
+                        
+                        }
+                      
+                    // something else is happaning !
+                    return const CircularProgressIndicator(color: Color(0xff3d405b),);
+                  },
+
+                ), 
+      
+        ),
+
+
+    );
+  }
 }

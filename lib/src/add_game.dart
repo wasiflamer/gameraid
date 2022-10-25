@@ -73,11 +73,11 @@ class _add_gameState extends State<add_game> {
 
           appBar: AppBar(
 
-          titleTextStyle: TextStyle(color:  Color(0xff3943B7), fontSize: 20 , fontFamily: 'Russo One',),
+          titleTextStyle: TextStyle(color:   Color(0xffe07a5f), fontSize: 21 , fontFamily: 'Mulish-Bold',),
 
-          foregroundColor: const  Color(0xff3943B7),
-          backgroundColor: const  Color(0xffffffff),
-          title:  const Text('Fetch Game'),
+          foregroundColor:  Color(0xffe07a5f),
+          backgroundColor:  const  Color(0xffffffff),
+          title:  const Text('Find Game'),
           ),
 
           backgroundColor: Colors.transparent,
@@ -110,7 +110,8 @@ class _add_gameState extends State<add_game> {
 
                         margin: EdgeInsets.only(left: 7, right: 7, top: 10 ),
 
-                        color: Color(0xff3943B7), 
+                        //color: Color(0xff3943B7), 
+                        color: Color(0xff3d405b), 
                         surfaceTintColor: Color.fromARGB(255, 255, 255, 255),
                         elevation: 8,
                         shape: const RoundedRectangleBorder(
@@ -131,7 +132,7 @@ class _add_gameState extends State<add_game> {
                         textInputAction: TextInputAction.next,
 
                         // text style
-                        style: TextStyle(color: Colors.white, fontSize: 22 , fontFamily: 'Mulish-Bold' , decoration: TextDecoration.none, decorationColor: Color(0xff3943B7),),
+                        style: TextStyle(color: Colors.white, fontSize: 22 , fontFamily: 'Mulish-Bold' , decoration: TextDecoration.none, decorationColor: Color(0xff3d405b),),
 
                         // cursor
                         cursorColor: Colors.white,
@@ -174,6 +175,8 @@ class _add_gameState extends State<add_game> {
 
 
           floatingActionButton: FloatingActionButton(
+
+            backgroundColor: Color(0xff3d405b),
     
              onPressed: ()  async {
 
@@ -188,7 +191,7 @@ class _add_gameState extends State<add_game> {
 
               }, 
               
-               body: 'fields name , cover , cover.url ; search "$TitleName"; where version_parent = null; where cover != null; limit 50 ;',
+               body: 'fields name, cover, cover.url, summary, storyline, first_release_date, platforms.name, total_rating, screenshots.image_id, genres.name  ; search "$TitleName"; where cover != null & version_parent = null ; limit 50 ;',
 
               );
 
@@ -215,7 +218,7 @@ class _add_gameState extends State<add_game> {
       
             },
 
-            child: Icon(Icons.skip_next),
+            child: Icon(Icons.navigate_next , size: 30,),
           
           ),
 
