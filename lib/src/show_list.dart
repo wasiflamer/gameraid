@@ -387,7 +387,7 @@ class _showlistState extends State<showlist> {
                  
                                   decoration: BoxDecoration(
 
-                                    border: Border.all(width: 3.0, color: Color.fromARGB(255, 0, 0, 0) , strokeAlign: StrokeAlign.inside),
+                                    border: Border.all(width: 3.0, color: Color.fromARGB(255, 0, 0, 0), strokeAlign: BorderSide.strokeAlignInside),
                             
                                     borderRadius:BorderRadius.all(Radius.elliptical(10,10)),
                                     image: DecorationImage(

@@ -434,7 +434,7 @@ class _discoverState extends State<discover>  {
                                                
                                     decoration: BoxDecoration(
                               
-                                      border: Border.all(width: 3.0, color: const Color.fromARGB(255, 0, 0, 0) , strokeAlign: StrokeAlign.inside),
+                                      border: Border.all(width: 3.0, color: const Color.fromARGB(255, 0, 0, 0) , strokeAlign: BorderSide.strokeAlignInside),
                                                           
                                       borderRadius: const BorderRadius.all(Radius.elliptical(10,10)),
                                       image: DecorationImage(
