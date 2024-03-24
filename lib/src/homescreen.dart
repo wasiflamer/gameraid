@@ -83,7 +83,7 @@ class _homescreenState extends State<homescreen> {
                 width: 150,
                 decoration: BoxDecoration(
                 color: Color(0xffffffff),
-                border: Border.all(width: 3.0, color: Color.fromARGB(255, 0, 0, 0) , strokeAlign: StrokeAlign.inside),         
+                border: Border.all(width: 3.0, color: Color.fromARGB(255, 0, 0, 0) , strokeAlign: BorderSide.strokeAlignInside),         
                 borderRadius:BorderRadius.all(Radius.elliptical(10,10))),
                 
                 child: Text('GameRaid' , style: TextStyle(fontSize: 28 , color:  Color(0xff3d405b), fontFamily: 'Mulish-Bold' ),)),

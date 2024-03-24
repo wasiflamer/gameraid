@@ -88,7 +88,7 @@ class _genres_and_themesState extends State<genres_and_themes>  {
     headers: {
 
     "Client-ID": "qy0014f6bb0s49s8iffaxs9fu05v1s",
-    "Authorization": "Bearer bhlgzl49cr72qi4kajmoxwfeyj2oz9"
+    "Authorization": "Bearer oxjo6d02h5kdrgj4qwtl52nt644d3f "
 
     }, 
 

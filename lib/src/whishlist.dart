@@ -136,7 +136,7 @@ class _whishlistState extends State<whishlist> {
                                 headers: {
 
                                 "Client-ID": "qy0014f6bb0s49s8iffaxs9fu05v1s",
-                                "Authorization": "Bearer bhlgzl49cr72qi4kajmoxwfeyj2oz9"
+                                "Authorization": "Bearer oxjo6d02h5kdrgj4qwtl52nt644d3f  "
 
                                 }, 
                                 
@@ -450,7 +450,7 @@ class _whishlistState extends State<whishlist> {
                                                
                                     decoration: BoxDecoration(
                               
-                                      border: Border.all(width: 3.0, color: const Color.fromARGB(255, 0, 0, 0) , strokeAlign: StrokeAlign.inside),            
+                                      border: Border.all(width: 3.0, color: const Color.fromARGB(255, 0, 0, 0) , strokeAlign: BorderSide.strokeAlignInside),            
                                       borderRadius: const BorderRadius.all(Radius.elliptical(10,10)),
                                       
                                       image: DecorationImage(
