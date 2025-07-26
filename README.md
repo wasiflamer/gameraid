@@ -1,9 +1,9 @@
 #GameRaid
 
-<img width="300" height="300" alt="wishlist" src="https://github.com/user-attachments/assets/70361eff-f57b-4ae8-be3f-ffe60c9c615f" />
-<img width="300" height="300" alt="details" src="https://github.com/user-attachments/assets/80e325f9-a418-456f-8fc9-aec019bae5c2" />
-<img width="300" height="300" alt="catagories" src="https://github.com/user-attachments/assets/76cc97fb-42ee-46f0-93d6-1f1b17e7fd32" />
-<img width="300" height="300" alt="buttons" src="https://github.com/user-attachments/assets/0f03ba3b-b158-4d1f-8dd2-bbf77ac42459" />
+<img width="150" height="300" alt="wishlist" src="https://github.com/user-attachments/assets/70361eff-f57b-4ae8-be3f-ffe60c9c615f" />
+<img width="150" height="300" alt="details" src="https://github.com/user-attachments/assets/80e325f9-a418-456f-8fc9-aec019bae5c2" />
+<img width="150" height="300" alt="catagories" src="https://github.com/user-attachments/assets/76cc97fb-42ee-46f0-93d6-1f1b17e7fd32" />
+<img width="150" height="300" alt="buttons" src="https://github.com/user-attachments/assets/0f03ba3b-b158-4d1f-8dd2-bbf77ac42459" />
 
 
 Video Game Tracker And Collection Manager
